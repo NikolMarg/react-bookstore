@@ -14,10 +14,11 @@ import FullPageSpinner from '../../UI/FullPageSpinner';
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
-      marginLeft: theme.spacing(5),
-      marginRight: theme.spacing(5),
+      marginLeft: theme.spacing(22),
+      marginRight: theme.spacing(22),
       marginTop: theme.spacing(7),
       marginBottom: theme.spacing(7),
+
       [theme.breakpoints.down('sm')]: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),

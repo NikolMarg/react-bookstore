@@ -51,7 +51,7 @@ const BooksScreen = () => {
             {
               books.map(item => {
                 return (
-                  <Grid item sm={3}>
+                  <Grid item sm={4} md={4} lg={3}>
                     <Card>
                       <CardActionArea>
                         <Link to={replaceUrlParam(NAV_ROUTES.BOOK, item.isbn)} component={RouterLink}>
@@ -82,7 +82,7 @@ const BooksScreen = () => {
     // else
     return (
       <Typography color="textSecondary">
-        City gets filled automatically
+        Could not load books
       </Typography>
     );
   }
