@@ -1,5 +1,5 @@
 // Core imports
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -16,8 +16,9 @@ import MainLayout from '../../components/Layout/MainLayout/MainLayout';
 import { getBooks } from '../../store/books/booksThunks';
 import { Breadcrumbs, Link, CircularProgress, Card, CardMedia, CardActionArea, CardContent } from '@material-ui/core';
 import { NAV_ROUTES } from '../../constants';
+import replaceUrlParam from '../../utils/string/replaceUrlParam';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     media: {
       height: 240
@@ -53,7 +54,7 @@ const BooksScreen = () => {
                   <Grid item sm={3}>
                     <Card>
                       <CardActionArea>
-                        <Link to={NAV_ROUTES.ROOT} component={RouterLink}>
+                        <Link to={replaceUrlParam(NAV_ROUTES.BOOK, item.isbn)} component={RouterLink}>
                           <CardMedia
                             className={classes.media}
                             image={item.image || "https://bookamo.com/img/book_placeholder.png"}

@@ -3,13 +3,13 @@ import { SnackbarManager } from '../../components';
 import { booksData } from '../../data/books';
 
 export const getBook = (
-  bookId,
+  bookIsbn,
   throwErrors = false
 ) => async dispatch => {
   dispatch(booksActions.bookFetchStart());
 
   try {
-    const book = "xxx"
+    const book = booksData.find(book => book.isbn === bookIsbn)
 
     dispatch(booksActions.bookFetchComplete(book));
   } catch (error) {
@@ -29,7 +29,6 @@ export const getBooks = (
 
   try {
     const books = booksData;
-    console.log(books)
 
     dispatch(booksActions.booksFetchComplete(books));
   } catch (error) {
