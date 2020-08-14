@@ -2,20 +2,41 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink, useParams } from 'react-router-dom';
+import moment from "moment";
 
 // Material component imports
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Button from '@material-ui/core/Button';
+import Chip from '@material-ui/core/Chip';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
+import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
 
 // Custom component imports
 import DocumentTitle from '../../components/UI/DocumentTitle/DocumentTitle';
 import MainLayout from '../../components/Layout/MainLayout/MainLayout';
+
+// Config & state imports
 import { getBook } from '../../store/books/booksThunks';
-import { Breadcrumbs, Link, CircularProgress } from '@material-ui/core';
 import { NAV_ROUTES } from '../../constants';
+import getInitials from '../../utils/string/getInitials';
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    image: {
+      maxWidth: '100%',
+      height: 'auto'
+    }
+  })
+);
 
 const BookScreen = () => {
   const dispatch = useDispatch();
+  const classes = useStyles();
   const { bookIsbn } = useParams();
 
   const { book, isFetching, error } = useSelector((state) => state.books);
@@ -33,8 +54,95 @@ const BookScreen = () => {
 
     if (book) {
       return (
-        <Grid item sm={3}>
-          fddsfsd
+        <Grid container spacing={4} item>
+          <Grid container direction="column" spacing={4} item sm={6}>
+            <Grid item>
+              <img src={book.image || "https://bookamo.com/img/book_placeholder.png"} alt={book.title} className={classes.image} />
+            </Grid>
+
+            <Grid container spacing={2} alignItems="center" item>
+              <Grid item>
+                <Avatar>
+                  {getInitials(book.publisher)}
+                </Avatar>
+              </Grid>
+              
+              <Grid item>
+                <Typography>
+                  {book.publisher}
+                </Typography>
+              </Grid>
+            </Grid>
+
+            <Grid item>
+              <Rating name="rating" value={book.rating} readOnly />
+            </Grid>
+          </Grid>
+
+          <Grid container direction="column" spacing={4} item sm={6}>
+            <Grid item>
+              <Typography variant="h5">
+                {book.title}
+              </Typography>
+            </Grid>
+            
+            <Grid item>
+              <Typography>
+                {book.description}
+              </Typography>
+            </Grid>
+
+            <Grid item>
+              <Button size="small" variant="contained" color="primary">
+                Favorite
+              </Button>
+
+              <Button size="small" variant="contained" color="primary">
+                Share
+              </Button>
+            </Grid>
+
+            <Grid item>
+              <Typography component={'span'}>
+                Category: 
+                {
+                  book.categories.split(',').map(item => {
+                    return (
+                      <Chip
+                        size="small"
+                        label={item}
+                        key={item}
+                      />
+                    )
+                  })
+                }
+              </Typography>
+              <Typography>
+                Year: {moment(book.published).year()}
+              </Typography>
+              <Typography>
+                Number of pages: {book.pages}
+              </Typography>
+            </Grid>
+
+            <Grid item>
+              <Typography>
+                Publisher: {book.publisher}
+              </Typography>
+            </Grid>
+
+            <Grid item>
+              <Typography>
+                ISBN-10: {book.isbn}
+              </Typography>
+            </Grid>
+
+            <Grid item>
+              <Button fullWidth variant="contained" color="primary">
+                Buy
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
       );
     }

@@ -51,7 +51,7 @@ const BooksScreen = () => {
             {
               books.map(item => {
                 return (
-                  <Grid item sm={4} md={4} lg={3}>
+                  <Grid item sm={4} md={4} lg={3} key={item.isbn}>
                     <Card>
                       <CardActionArea>
                         <Link to={replaceUrlParam(NAV_ROUTES.BOOK, item.isbn)} component={RouterLink}>
