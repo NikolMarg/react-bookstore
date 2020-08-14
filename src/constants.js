@@ -2,7 +2,7 @@
 export const NAV_ROUTES = {
   ROOT: '/',
   SEARCH: '/search',
-  BOOK: '/books/:bookId'
+  BOOK: '/books/:bookIsbn'
 };
 
 export const WEBPAGE_TITLE_DEFAULT = 'Bookstore';

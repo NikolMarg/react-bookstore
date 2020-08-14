@@ -9,7 +9,7 @@ export const getBook = (
   dispatch(booksActions.bookFetchStart());
 
   try {
-    const book = booksData.find(book => book.isbn === bookIsbn)
+    const book = booksData.find(book => book.isbn === bookIsbn);
 
     dispatch(booksActions.bookFetchComplete(book));
   } catch (error) {
