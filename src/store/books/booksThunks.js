@@ -1,5 +1,6 @@
 import { booksActions } from './books';
 import { SnackbarManager } from '../../components';
+import { booksData } from '../../data/books';
 
 export const getBook = (
   bookId,
@@ -27,7 +28,8 @@ export const getBooks = (
   dispatch(booksActions.booksFetchStart());
 
   try {
-    const books = ["xxx", "xxxxx"]
+    const books = booksData;
+    console.log(books)
 
     dispatch(booksActions.booksFetchComplete(books));
   } catch (error) {

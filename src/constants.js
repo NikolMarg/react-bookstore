@@ -1,20 +1,11 @@
 // Navigation routes
 export const NAV_ROUTES = {
   ROOT: '/',
-  BOOKS: '/books',
-  BOOK: '/books/:bookId',
-  SETTINGS: '/settings'
+  BOOKS: '/search',
+  BOOK: '/books/:bookId'
 };
 
 export const WEBPAGE_TITLE_DEFAULT = 'Bookstore';
-
-// REDUX
-export const APP_INIT_STATES = {
-  UNINITALIZED: 'UNINITALIZED',
-  INITIALIZING: 'INITIALIZING',
-  INITIALIZED: 'INITIALIZED',
-  INIT_FAILED: 'INIT_FAILED'
-};
 
 // Regular expressions
 export const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;

@@ -19,7 +19,7 @@ const Root = () => {
 
       <Route
         exact
-        path={NAV_ROUTES.BOOKS}
+        path={NAV_ROUTES.SEARCH}
       >
         <BooksScreen />
       </Route>
