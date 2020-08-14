@@ -1,7 +1,7 @@
 // Navigation routes
 export const NAV_ROUTES = {
   ROOT: '/',
-  BOOKS: '/search',
+  SEARCH: '/search',
   BOOK: '/books/:bookId'
 };
 

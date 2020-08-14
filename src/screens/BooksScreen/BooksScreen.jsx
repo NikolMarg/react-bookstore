@@ -52,21 +52,23 @@ const BooksScreen = () => {
                 return (
                   <Grid item sm={3}>
                     <Card>
-                    <CardActionArea>
-                      <CardMedia
-                        className={classes.media}
-                        image={item.image || "https://bookamo.com/img/book_placeholder.png"}
-                        title={item.title}
-                      />
-                      <CardContent>
-                        <Typography gutterBottom variant="h5">
-                          {item.title}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                          {`${item.description.substring(0, 120)}...`}
-                        </Typography>
-                      </CardContent>
-                    </CardActionArea>
+                      <CardActionArea>
+                        <Link to={NAV_ROUTES.ROOT} component={RouterLink}>
+                          <CardMedia
+                            className={classes.media}
+                            image={item.image || "https://bookamo.com/img/book_placeholder.png"}
+                            title={item.title}
+                          />
+                          <CardContent>
+                            <Typography gutterBottom variant="h5">
+                              {item.title}
+                            </Typography>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                              {`${item.description.substring(0, 120)}...`}
+                            </Typography>
+                          </CardContent>
+                        </Link>
+                      </CardActionArea>
                     </Card>
                   </Grid>
                 )
