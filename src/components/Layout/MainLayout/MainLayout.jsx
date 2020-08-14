@@ -6,7 +6,9 @@ import {
 
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
+import Fab from '@material-ui/core/Fab';
 import Grid from '@material-ui/core/Grid';
+import AddIcon from '@material-ui/icons/Add';
 
 import { Topbar } from '../..';
 import FullPageSpinner from '../../UI/FullPageSpinner';
@@ -28,6 +30,11 @@ const useStyles = makeStyles((theme) =>
     },
     content: {
       paddingTop: 64 // Header height
+    },
+    fab: {
+      position: 'fixed',
+      bottom: 22,
+      right: 22
     }
   })
 );
@@ -49,6 +56,9 @@ const MainLayout = ({ loading, children }) => {
           </Grid>
         </Container>
       </Box>
+      <Fab color="primary" aria-label="add" className={classes.fab}>
+        <AddIcon />
+      </Fab>
     </Box>
   );
 };

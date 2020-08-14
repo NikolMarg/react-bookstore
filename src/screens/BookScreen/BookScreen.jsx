@@ -75,7 +75,7 @@ const BookScreen = () => {
             </Grid>
 
             <Grid item>
-              <Rating name="rating" value={book.rating} readOnly />
+              <Rating name="rating" size="large" value={book.rating} readOnly />
             </Grid>
           </Grid>
 
