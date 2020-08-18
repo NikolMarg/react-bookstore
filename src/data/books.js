@@ -11,7 +11,7 @@ export const booksData = [
       "website": "http://eloquentjavascript.net/",
       "image": "https://eloquentjavascript.net/img/cover.jpg",
       "rating": 4,
-      "categories": "programming, javascript"
+      "categories": "programming,javascript"
     },
     {
       "isbn13": "9781449331818",
@@ -25,7 +25,7 @@ export const booksData = [
       "website": "http://www.addyosmani.com/resources/essentialjsdesignpatterns/book/",
       "image": "https://addyosmani.com/resources/essentialjsdesignpatterns/cover/cover.jpg",
       "rating": 5,
-      "categories": "programming, javascript, jquery"
+      "categories": "programming,javascript,jquery"
     },
     {
       "isbn13": "9781449365035",
@@ -39,7 +39,7 @@ export const booksData = [
       "website": "http://speakingjs.com/",
       "image": "http://speakingjs.com/speakingjs_cover.jpg",
       "rating": 2,
-      "categories": "programming, javascript"
+      "categories": "programming,javascript"
     },
     {
       "isbn13": "9781491950296",
@@ -53,7 +53,7 @@ export const booksData = [
       "website": "http://chimera.labs.oreilly.com/books/1234000000262/index.html",
       "image": "https://learning.oreilly.com/library/cover/9781491950289/250w/",
       "rating": 3,
-      "categories": "programming, javascript"
+      "categories": "programming,javascript"
     },
     {
       "isbn13": "9781593277574",
@@ -67,7 +67,7 @@ export const booksData = [
       "website": "https://leanpub.com/understandinges6/read",
       "image": "https://d2sofvawe08yqg.cloudfront.net/understandinges6/hero?1558023536",
       "rating": 3,
-      "categories": "programming, javascript, es6"
+      "categories": "programming,javascript,es6"
     },
     {
       "isbn13": "9781491904244",
@@ -80,7 +80,7 @@ export const booksData = [
       "description": "No matter how much experience you have with JavaScript, odds are you don’t fully understand the language. As part of the \"You Don’t Know JS\" series, this compact guide focuses on new features available in ECMAScript 6 (ES6), the latest version of the standard upon which JavaScript is built.",
       "website": "https://github.com/getify/You-Dont-Know-JS/tree/master/es6%20&%20beyond",
       "rating": 4,
-      "categories": "programming, javascript, es6"
+      "categories": "programming,javascript,es6"
     },
     {
       "isbn13": "9781449325862",
@@ -93,7 +93,7 @@ export const booksData = [
       "description": "This pocket guide is the perfect on-the-job companion to Git, the distributed version control system. It provides a compact, readable introduction to Git for new users, as well as a reference to common commands and procedures for those of you with Git experience.",
       "website": "http://chimera.labs.oreilly.com/books/1230000000561/index.html",
       "rating": 5,
-      "categories": "programming, git"
+      "categories": "programming,git"
     },
     {
       "isbn13": "9781449337711",
@@ -106,6 +106,6 @@ export const booksData = [
       "description": "Design and build Web APIs for a broad range of clients—including browsers and mobile devices—that can adapt to change over time. This practical, hands-on guide takes you through the theory and tools you need to build evolvable HTTP services with Microsoft’s ASP.NET Web API framework. In the process, you’ll learn how design and implement a real-world Web API.",
       "website": "http://chimera.labs.oreilly.com/books/1234000001708/index.html",
       "rating": 4,
-      "categories": "programming, .net, api"
+      "categories": "programming,.net,api"
     }
   ]

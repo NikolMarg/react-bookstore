@@ -83,13 +83,21 @@ const BooksScreen = () => {
     }
 
     if (books && books.length > 0) {
+
       // Apply existing filters to books
       let filteredBooks = [...books];
-
       if (filters.title) {
         filteredBooks = filteredBooks.filter((item) => item.title.toLowerCase().includes(filters.title.toLowerCase()));
       }
-
+      if (filters.categories && is.not.emptyArray(filters.categories)) {
+        filteredBooks = filteredBooks.filter((book) => {
+          // Matching books should include all category filters
+          return filters.categories.every(bookCategory => {
+            return book.categories.split(',').includes(bookCategory);
+          });
+        });
+      }
+      
       return (
           <Grid container spacing={3} item>
             {
