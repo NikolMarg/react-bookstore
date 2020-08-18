@@ -338,7 +338,7 @@ const BookCreateScreen = () => {
                               name="inner-rating"
                               size="large"
                               value={value}
-                              onChange={(event, newValue) => {
+                              onChange={(_event, newValue) => {
                                 setFieldValue('rating', newValue);
                               }}
                             />
