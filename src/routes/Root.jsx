@@ -7,6 +7,7 @@ import BookScreen from '../screens/BookScreen';
 import BooksScreen from '../screens/BooksScreen';
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import PageNotFoundScreen from '../screens/PageNotFoundScreen';
+import BookCreateScreen from '../screens/BookCreateScreen';
 
 const Root = () => {
   return (
@@ -20,10 +21,17 @@ const Root = () => {
 
       <Route
         exact
+        path={NAV_ROUTES.BOOK_CREATE}
+      >
+        <BookCreateScreen />
+      </Route>
+
+      <Route
+        exact
         path={NAV_ROUTES.SEARCH}
       >
         <BooksScreen />
-      </Route>
+      </Route>     
 
       <Route
         exact

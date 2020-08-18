@@ -1,17 +1,21 @@
+// Core imports
 import React from 'react';
-import {
-  makeStyles,
-  createStyles
-} from '@material-ui/core/styles';
+import { Link as RouterLink } from 'react-router-dom';
 
+// Material component imports
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Fab from '@material-ui/core/Fab';
 import Grid from '@material-ui/core/Grid';
 import AddIcon from '@material-ui/icons/Add';
 
+// Custom component imports
 import { Topbar } from '../..';
 import FullPageSpinner from '../../UI/FullPageSpinner';
+
+// Misc imports
+import { NAV_ROUTES } from '../../../constants';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -56,7 +60,14 @@ const MainLayout = ({ loading, children }) => {
           </Grid>
         </Container>
       </Box>
-      <Fab color="primary" aria-label="add" className={classes.fab}>
+
+      <Fab 
+        color="primary" 
+        aria-label="add" 
+        className={classes.fab} 
+        component={RouterLink}
+        to={NAV_ROUTES.BOOK_CREATE}
+      >
         <AddIcon />
       </Fab>
     </Box>

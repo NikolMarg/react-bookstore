@@ -9,7 +9,7 @@ export const getBook = (
   dispatch(booksActions.bookFetchStart());
 
   try {
-    const book = booksData.find(book => book.isbn === bookIsbn);
+    const book = booksData.find(book => book.isbn13 === bookIsbn);
 
     dispatch(booksActions.bookFetchComplete(book));
   } catch (error) {
@@ -49,6 +49,7 @@ export const createBook = (
 
   try {
     const result = "success"
+    console.log(values);
 
     dispatch(booksActions.bookCreateComplete(result));
     SnackbarManager.success('Book creation successful!');

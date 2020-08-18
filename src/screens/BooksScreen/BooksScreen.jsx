@@ -12,11 +12,12 @@ import Typography from '@material-ui/core/Typography';
 import DocumentTitle from '../../components/UI/DocumentTitle/DocumentTitle';
 import MainLayout from '../../components/Layout/MainLayout/MainLayout';
 
-// Config & state imports
+// Misc imports
 import { getBooks } from '../../store/books/booksThunks';
 import { Breadcrumbs, Link, CircularProgress, Card, CardMedia, CardActionArea, CardContent } from '@material-ui/core';
 import { NAV_ROUTES } from '../../constants';
 import replaceUrlParam from '../../utils/string/replaceUrlParam';
+import DEFAULT_BOOK_COVER from '../../assets/book_placeholder.png'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -51,13 +52,13 @@ const BooksScreen = () => {
             {
               books.map(item => {
                 return (
-                  <Grid item sm={4} md={4} lg={3} key={item.isbn}>
+                  <Grid item sm={4} md={4} lg={3} key={item.isbn13}>
                     <Card>
                       <CardActionArea>
-                        <Link to={replaceUrlParam(NAV_ROUTES.BOOK, item.isbn)} component={RouterLink}>
+                        <Link to={replaceUrlParam(NAV_ROUTES.BOOK, item.isbn13)} component={RouterLink}>
                           <CardMedia
                             className={classes.media}
-                            image={item.image || "https://bookamo.com/img/book_placeholder.png"}
+                            image={item.image || DEFAULT_BOOK_COVER}
                             title={item.title}
                           />
                           <CardContent>

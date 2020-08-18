@@ -20,10 +20,11 @@ import Typography from '@material-ui/core/Typography';
 import DocumentTitle from '../../components/UI/DocumentTitle/DocumentTitle';
 import MainLayout from '../../components/Layout/MainLayout/MainLayout';
 
-// Config & state imports
+// Misc imports
 import { getBook } from '../../store/books/booksThunks';
 import { NAV_ROUTES } from '../../constants';
 import getInitials from '../../utils/string/getInitials';
+import DEFAULT_BOOK_COVER from '../../assets/book_placeholder.png'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -57,7 +58,7 @@ const BookScreen = () => {
         <Grid container spacing={4} item>
           <Grid container direction="column" spacing={4} item sm={6}>
             <Grid item>
-              <img src={book.image || "https://bookamo.com/img/book_placeholder.png"} alt={book.title} className={classes.image} />
+              <img src={book.image || DEFAULT_BOOK_COVER} alt={book.title} className={classes.image} />
             </Grid>
 
             <Grid container spacing={2} alignItems="center" item>
@@ -133,7 +134,7 @@ const BookScreen = () => {
 
             <Grid item>
               <Typography>
-                ISBN-10: {book.isbn}
+                ISBN-13: {book.isbn13}
               </Typography>
             </Grid>
 
@@ -165,8 +166,11 @@ const BookScreen = () => {
             <Link color="inherit" to={NAV_ROUTES.ROOT} component={RouterLink}>
               Home
             </Link>
-            <Typography color="textPrimary">
+            <Link color="inherit" to={NAV_ROUTES.SEARCH} component={RouterLink}>
               Search
+            </Link>
+            <Typography color="textPrimary">
+              Book
             </Typography>
           </Breadcrumbs>
         </Grid>
