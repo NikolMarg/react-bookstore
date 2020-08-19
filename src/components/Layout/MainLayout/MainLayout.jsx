@@ -25,6 +25,13 @@ const useStyles = makeStyles((theme) =>
       marginTop: theme.spacing(7),
       marginBottom: theme.spacing(7),
 
+      [theme.breakpoints.down('md')]: {
+        marginLeft: theme.spacing(10),
+        marginRight: theme.spacing(10),
+        marginTop: theme.spacing(7),
+        marginBottom: theme.spacing(7)
+      },
+
       [theme.breakpoints.down('sm')]: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
@@ -33,7 +40,7 @@ const useStyles = makeStyles((theme) =>
       }
     },
     content: {
-      paddingTop: 64 // Header height
+      paddingTop: 84 // Header height
     },
     fab: {
       position: 'fixed',

@@ -6,7 +6,7 @@ import grey from '@material-ui/core/colors/grey';
 
 const white = '#FFFFFF';
 const black = '#000000';
-const primary = '#3f51b5';
+const primary = '#000000';
 const secondary = '#47b881'
 
 export default {
@@ -14,7 +14,7 @@ export default {
   white,
   primary: {
     contrastText: white,
-    dark: '#002984',
+    dark: '#333333',
     main: primary,
     light: '#757DE8'
   },
