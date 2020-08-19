@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import MuiTextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { TextField, SimpleFileUpload } from 'formik-material-ui';
+import { TextField } from 'formik-material-ui';
 import { Autocomplete } from 'formik-material-ui-lab';
 
 // Custom component imports
@@ -26,11 +26,22 @@ import DEFAULT_BOOK_COVER from '../../assets/book_placeholder.png'
 import { useUtilStyles } from '../../theme/styles';
 import { categoriesData } from '../../data/categories';
 import is from '../../utils/is';
+import Rating from '@material-ui/lab/Rating';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     media: {
-      height: 240
+      height: 240,
+      boxShadow: '0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15)',
+      borderRadius: 8,
+      margin: '14px 14px 4px 14px'
+    },
+    bookTitle: {
+      fontSize: '1.10rem',
+      lineHeight: '1.4',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap'
     }
   })
 );
@@ -103,24 +114,28 @@ const BooksScreen = () => {
             {
               filteredBooks.map(item => {
                 return (
-                  <Grid item sm={4} md={4} lg={3} key={item.isbn13}>
+                  <Grid item sm={4} key={item.isbn13}>
                     <Card>
-                      <CardActionArea>
-                        <Link to={replaceUrlParam(NAV_ROUTES.BOOK, item.isbn13)} component={RouterLink}>
+                      <CardActionArea component={RouterLink} to={replaceUrlParam(NAV_ROUTES.BOOK, item.isbn13)}>
+                        {/* <Link to={replaceUrlParam(NAV_ROUTES.BOOK, item.isbn13)} component={RouterLink}> */}
                           <CardMedia
                             className={classes.media}
                             image={item.image || DEFAULT_BOOK_COVER}
                             title={item.title}
                           />
-                          <CardContent>
-                            <Typography gutterBottom variant="h5">
+                          <CardContent className={utilClasses.textCenter}>
+                            <Typography gutterBottom variant="h6" className={classes.bookTitle}>
                               {item.title}
                             </Typography>
-                            <Typography variant="body2" color="textSecondary" component="p">
-                              {`${item.description.substring(0, 120)}...`}
-                            </Typography>
+                            {/* <Typography variant="body2" color="textSecondary" component="p">
+                              {`${item.description.substring(0, 80)}...`}
+                            </Typography> */}
                           </CardContent>
-                        </Link>
+                          <Divider/>
+                          <CardContent className={utilClasses.textCenter}>
+                            <Rating name="rating" value={item.rating} readOnly />
+                          </CardContent>
+                        {/* </Link> */}
                       </CardActionArea>
                     </Card>
                   </Grid>
