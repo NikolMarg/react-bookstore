@@ -128,7 +128,7 @@ const Topbar = ({ hasMenu = true, onSidebarOpen }) => {
               <List className={classes.list}>
                 <ListItem className={classes.listItem}>
                   <Button
-                    color="transparent"
+                    color="inherit"
                     component={RouterLink}
                     to={NAV_ROUTES.ROOT}
                     className={classes.navLink}
@@ -138,7 +138,7 @@ const Topbar = ({ hasMenu = true, onSidebarOpen }) => {
                 </ListItem>
                 <ListItem className={classes.listItem}>
                   <Button
-                    color="transparent"
+                    color="inherit"
                     component={RouterLink}
                     to={NAV_ROUTES.SEARCH}
                     className={classes.navLink}
