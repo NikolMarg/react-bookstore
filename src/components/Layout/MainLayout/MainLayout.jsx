@@ -1,5 +1,5 @@
 // Core imports
-import React from 'react';
+import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 // Material component imports
@@ -13,10 +13,12 @@ import AddIcon from '@material-ui/icons/Add';
 
 // Custom component imports
 import FullPageSpinner from '../../UI/FullPageSpinner';
+import Sidebar from '../Sidebar';
 import Topbar from '../Topbar';
 
 // Misc imports
 import { NAV_ROUTES } from '../../../constants';
+import { IsDesktopScreenSize } from '../../../utils/platform';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -53,10 +55,28 @@ const useStyles = makeStyles((theme) =>
 
 const MainLayout = ({ loading, children }) => {
   const classes = useStyles();
+  const isDesktop = IsDesktopScreenSize();
+  const [openSidebar, setOpenSidebar] = useState(false);
+
+  const handleSidebarOpen = () => {
+    setOpenSidebar(true);
+  };
+
+  const handleSidebarClose = () => {
+    setOpenSidebar(false);
+  };
+
+  const shouldOpenSidebar = isDesktop ? false : openSidebar;
 
   return (
     <Box>
-      <Topbar hasMenu={true} />
+      <Topbar hasMenu={true} onSidebarOpen={handleSidebarOpen} />
+
+      <Sidebar
+          onClose={handleSidebarClose}
+          open={shouldOpenSidebar}
+          variant={isDesktop ? 'persistent' : 'temporary'}
+        />
 
       <Box className={classes.root}>
         <Container
