@@ -41,6 +41,7 @@ const BookScreen = () => {
   const { bookIsbn } = useParams();
 
   const { book, isFetching, error } = useSelector((state) => state.books);
+  const pageTitle = book && book.title ? book.title : 'Book details';
 
   useEffect(() => {
     dispatch(getBook(bookIsbn));
@@ -56,7 +57,7 @@ const BookScreen = () => {
     if (book) {
       return (
         <Grid container spacing={4} item>
-          <Grid container direction="column" spacing={4} item sm={6}>
+          <Grid container direction="column" spacing={3} item sm={6}>
             <Grid item>
               <img src={book.image || DEFAULT_BOOK_COVER} alt={book.title} className={classes.image} />
             </Grid>
@@ -158,7 +159,7 @@ const BookScreen = () => {
 
   return (
     <MainLayout>
-      <DocumentTitle title="Book" />
+      <DocumentTitle title={pageTitle} />
 
       <Grid container spacing={4}>
         <Grid item xs={12}>
@@ -170,7 +171,7 @@ const BookScreen = () => {
               Search
             </Link>
             <Typography color="textPrimary">
-              Book
+              {pageTitle}
             </Typography>
           </Breadcrumbs>
         </Grid>
