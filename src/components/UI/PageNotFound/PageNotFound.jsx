@@ -4,17 +4,15 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
-import notFoundIllustration from '../../../assets/404.svg';
+import notFoundIllustration from '../../../assets/404.png';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
-      textAlign: 'center',
-      marginTop: theme.spacing(8)
+      textAlign: 'center'
     },
     notFoundIllustration: {
-      width: 400,
-      marginBottom: theme.spacing(4)
+      width: 400
     }
   })
 );
