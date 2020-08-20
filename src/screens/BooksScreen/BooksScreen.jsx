@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink, useLocation, useHistory } from 'react-router-dom';
-import { Form, Field, Formik, FieldArray, getIn } from 'formik';
+import { Form, Field, Formik } from 'formik';
+import moment from "moment";
 
 // Material component imports
 import { makeStyles, createStyles } from '@material-ui/core/styles';
@@ -20,7 +21,7 @@ import MainLayout from '../../components/Layout/MainLayout/MainLayout';
 // Misc imports
 import { getBooks } from '../../store/books/booksThunks';
 import { Breadcrumbs, Link, CircularProgress, Card, CardMedia, CardActionArea, CardContent, Paper, Accordion, AccordionSummary, AccordionDetails, Divider } from '@material-ui/core';
-import { NAV_ROUTES } from '../../constants';
+import { NAV_ROUTES, NUMBER_REGEX } from '../../constants';
 import replaceUrlParam from '../../utils/string/replaceUrlParam';
 import DEFAULT_BOOK_COVER from '../../assets/book_placeholder.png'
 import { useUtilStyles } from '../../theme/styles';
@@ -71,6 +72,7 @@ const BooksScreen = () => {
   const setFiltersAndParams = (newFilters) => {
     const params = new URLSearchParams(location.search);
 
+    // Set up URL params
     Object.keys(newFilters).forEach(key => {
       if (is.nullish(newFilters[key]) || is.emptyArray(newFilters[key]) || is.emptyObject(newFilters[key])) {
         return;
@@ -79,6 +81,9 @@ const BooksScreen = () => {
       }      
     })
 
+    // TODO: Remove keys for empty params
+
+    // Apply the URL params
     history.replace({
       search: params.toString()
     });
@@ -99,6 +104,12 @@ const BooksScreen = () => {
       let filteredBooks = [...books];
       if (filters.title) {
         filteredBooks = filteredBooks.filter((item) => item.title.toLowerCase().includes(filters.title.toLowerCase()));
+      }
+      if (filters.publisher) {
+        filteredBooks = filteredBooks.filter((item) => item.publisher.toLowerCase().includes(filters.publisher.toLowerCase()));
+      }
+      if (filters.publishedYear) {
+        filteredBooks = filteredBooks.filter((item) => moment(item.published).year().toString() === filters.publishedYear);
       }
       if (filters.categories && is.not.emptyArray(filters.categories)) {
         filteredBooks = filteredBooks.filter((book) => {
@@ -246,6 +257,54 @@ const BooksScreen = () => {
                               )}
                             />
                           </Grid>
+                        
+                          <Grid item xs={12} sm={6}>
+                            <Typography>
+                              Publisher
+                            </Typography>
+                            <Field
+                              component={TextField}
+                              type="text"
+                              name="publisher"
+                              variant="outlined" 
+                              fullWidth 
+                              placeholder="Search for publisher"
+                              margin="dense"
+                              onChange={(event) => {
+                                const value = event.target.value;
+                                setFieldValue('publisher', value);
+                                setFiltersAndParams({
+                                  ...filters,
+                                  publisher: value
+                                });
+                              }}
+                            />
+                          </Grid>
+
+                          <Grid item xs={12} sm={6}>
+                            <Typography>
+                              Year Published
+                            </Typography>
+                            <Field
+                              component={TextField}
+                              type="text"
+                              name="publishedYear"
+                              variant="outlined"
+                              placeholder="Search for published year"
+                              fullWidth
+                              margin="dense"
+                              onChange={(event) => {
+                                const value = event.target.value;
+                                if (value === '' || NUMBER_REGEX.test(value))
+                                setFieldValue('publishedYear', value);
+                                setFiltersAndParams({
+                                  ...filters,
+                                  publishedYear: value
+                                });
+                              }}
+                            />
+                          </Grid>
+                        
                         </Grid>
                       </AccordionDetails>
                     </Accordion>
