@@ -1,6 +1,6 @@
 import { booksActions } from './books';
 import { SnackbarManager } from '../../components';
-import { booksData } from '../../data/books';
+let booksData = require('../../data/books.json');
 
 export const getBook = (
   bookIsbn,
@@ -50,6 +50,7 @@ export const createBook = (
   try {
     const result = "success"
     console.log(values);
+    booksData.push(JSON.stringify(values))
 
     dispatch(booksActions.bookCreateComplete(result));
     SnackbarManager.success('Book creation successful!');

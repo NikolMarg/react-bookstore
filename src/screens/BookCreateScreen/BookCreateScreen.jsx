@@ -22,19 +22,23 @@ import ClearIcon from '@material-ui/icons/Clear';
 import DocumentTitle from '../../components/UI/DocumentTitle/DocumentTitle';
 import MainLayout from '../../components/Layout/MainLayout/MainLayout';
 
+// Misc imports
 import { TITLE_REGEX, DESCRIPTION_REGEX, NUMBER_REGEX } from '../../constants';
 import { createBook } from '../../store/books/booksThunks';
 import FormAsyncButton from '../../components/UI/FormAsyncButton/FormAsyncButton';
-import { categoriesData } from '../../data/categories';
 import { useUtilStyles } from '../../theme/styles';
+let categoriesData = require('../../data/categories.json');
+
 
 const useStyles = makeStyles(theme =>
   createStyles({
     formRoot: {
       padding: theme.spacing(4)
     },
-    fileInput: {
-      display: 'none'
+    fileInputButton: {
+      '& .MuiFormControl-root': {
+        display: 'none'
+      }
     },
     arrayFieldContainer: {
       display: "flex",
@@ -137,10 +141,18 @@ const BookCreateScreen = () => {
                         <Typography>
                           Cover
                         </Typography>
-                        <Field
-                          component={SimpleFileUpload}
-                          name="image"
-                        />
+                        <Button
+                          variant="outlined"
+                          color="primary"
+                          component="label"
+                          className={classes.fileInputButton}
+                        >
+                          Upload File
+                          <Field
+                            component={SimpleFileUpload}
+                            name="image"
+                          />
+                        </Button>
                       </Grid>
 
                       <Grid item xs={12}>
@@ -187,7 +199,7 @@ const BookCreateScreen = () => {
                     <Grid container spacing={4} className={classes.formRoot}>
                       <Grid item xs={12}>
                         <Typography>
-                          Categories
+                          Categories*
                         </Typography>
                         
                         <Field

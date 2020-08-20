@@ -25,9 +25,9 @@ import { NAV_ROUTES, NUMBER_REGEX } from '../../constants';
 import replaceUrlParam from '../../utils/string/replaceUrlParam';
 import DEFAULT_BOOK_COVER from '../../assets/book_placeholder.png'
 import { useUtilStyles } from '../../theme/styles';
-import { categoriesData } from '../../data/categories';
 import is from '../../utils/is';
 import Rating from '@material-ui/lab/Rating';
+let categoriesData = require('../../data/categories.json');
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -128,7 +128,6 @@ const BooksScreen = () => {
                   <Grid item sm={4} key={item.isbn13}>
                     <Card>
                       <CardActionArea component={RouterLink} to={replaceUrlParam(NAV_ROUTES.BOOK, item.isbn13)}>
-                        {/* <Link to={replaceUrlParam(NAV_ROUTES.BOOK, item.isbn13)} component={RouterLink}> */}
                           <CardMedia
                             className={classes.media}
                             image={item.image || DEFAULT_BOOK_COVER}
@@ -138,15 +137,11 @@ const BooksScreen = () => {
                             <Typography gutterBottom variant="h6" className={classes.bookTitle}>
                               {item.title}
                             </Typography>
-                            {/* <Typography variant="body2" color="textSecondary" component="p">
-                              {`${item.description.substring(0, 80)}...`}
-                            </Typography> */}
                           </CardContent>
                           <Divider/>
                           <CardContent className={utilClasses.textCenter}>
                             <Rating name="rating" value={item.rating} readOnly />
                           </CardContent>
-                        {/* </Link> */}
                       </CardActionArea>
                     </Card>
                   </Grid>
@@ -190,7 +185,7 @@ const BooksScreen = () => {
               validateOnBlur={false}
             >
               {formikBag => {
-                const { isValidating, touched, errors, values, handleChange, handleBlur, setFieldValue } = formikBag;
+                const { touched, errors, setFieldValue } = formikBag;
 
                 return (
                   <Form>
