@@ -8,11 +8,12 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Fab from '@material-ui/core/Fab';
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
 
 // Custom component imports
-import { Topbar } from '../..';
 import FullPageSpinner from '../../UI/FullPageSpinner';
+import Topbar from '../Topbar';
 
 // Misc imports
 import { NAV_ROUTES } from '../../../constants';
@@ -68,15 +69,17 @@ const MainLayout = ({ loading, children }) => {
         </Container>
       </Box>
 
-      <Fab 
-        color="primary" 
-        aria-label="add" 
-        className={classes.fab} 
-        component={RouterLink}
-        to={NAV_ROUTES.BOOK_CREATE}
-      >
-        <AddIcon />
-      </Fab>
+      <Tooltip title="Add new book" aria-label="add">
+        <Fab 
+          color="primary" 
+          aria-label="add" 
+          className={classes.fab} 
+          component={RouterLink}
+          to={NAV_ROUTES.BOOK_CREATE}
+        >
+          <AddIcon />
+        </Fab>
+      </Tooltip>
     </Box>
   );
 };
