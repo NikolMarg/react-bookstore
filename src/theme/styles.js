@@ -23,6 +23,12 @@ export const useUtilStyles = makeStyles((theme) =>
     // Text utils
     textCenter: {
       textAlign: 'center'
+    },
+
+    // Image utils
+    imgResponsive: {
+      maxWidth: '100%',
+      height: 'auto'
     }
   })
 );

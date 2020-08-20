@@ -25,12 +25,12 @@ import { getBook } from '../../store/books/booksThunks';
 import { NAV_ROUTES } from '../../constants';
 import getInitials from '../../utils/string/getInitials';
 import DEFAULT_BOOK_COVER from '../../assets/book_placeholder.png'
+import { useUtilStyles } from '../../theme/styles';
 
 const useStyles = makeStyles(() =>
   createStyles({
     image: {
-      maxWidth: '100%',
-      height: 'auto'
+      borderRadius: 16
     }
   })
 );
@@ -38,6 +38,7 @@ const useStyles = makeStyles(() =>
 const BookScreen = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const utilClasses = useUtilStyles();
   const { bookIsbn } = useParams();
 
   const { book, isFetching, error } = useSelector((state) => state.books);
@@ -59,7 +60,7 @@ const BookScreen = () => {
         <Grid container spacing={4} item>
           <Grid container direction="column" spacing={3} item sm={6}>
             <Grid item>
-              <img src={book.image || DEFAULT_BOOK_COVER} alt={book.title} className={classes.image} />
+              <img src={book.image || DEFAULT_BOOK_COVER} alt={book.title} className={`${utilClasses.imgResponsive} ${classes.image}`} />
             </Grid>
 
             <Grid container spacing={2} alignItems="center" item>

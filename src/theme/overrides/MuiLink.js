@@ -1,5 +1,6 @@
 export default {
   button: {
-    verticalAlign: 'baseline'
+    verticalAlign: 'baseline',
+    textDecoration: 'none'
   }
 };

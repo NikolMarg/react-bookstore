@@ -1,9 +1,12 @@
+// Core imports
 import React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
 
+// Material component imports
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
+// Misc imports
 import notFoundIllustration from '../../../assets/404.png';
 
 const useStyles = makeStyles((theme) =>
