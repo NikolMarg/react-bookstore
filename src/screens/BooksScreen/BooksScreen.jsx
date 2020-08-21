@@ -99,12 +99,15 @@ const BooksScreen = () => {
   const renderBooksList = () => {
     if (isFetching) {
       return (
-        <CircularProgress size={24} />
+        <Grid container justify="center" item>
+          <Grid item>
+            <CircularProgress size={32} />
+          </Grid>
+        </Grid>
       );
     }
 
     if (books && books.length > 0) {
-
       // Apply existing filters to books
       let filteredBooks = [...books];
       if (filters.title) {
@@ -125,7 +128,7 @@ const BooksScreen = () => {
         });
       }
       
-      return (
+      return filteredBooks.length > 0 ? (
           <Grid container spacing={3} item>
             {
               filteredBooks.map(item => {
@@ -154,13 +157,25 @@ const BooksScreen = () => {
               })
             }
           </Grid>
+      ) : (
+        <Typography color="textSecondary">
+          No books were found for the given filters. Please try a different search.
+        </Typography>
+      );
+    }
+
+    if (error) {
+      return (
+        <Typography color="error">
+          There was an issue fetching books, please try again.
+        </Typography>
       );
     }
 
     // else
     return (
       <Typography color="textSecondary">
-        Could not load books
+        No books were found.
       </Typography>
     );
   }

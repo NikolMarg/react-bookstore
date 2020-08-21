@@ -29,8 +29,7 @@ export const getBooks = (
 
   try {
     const books = booksData;
-
-    dispatch(booksActions.booksFetchComplete(books));
+    setTimeout(() => dispatch(booksActions.booksFetchComplete(books)), 1500);
   } catch (error) {
     dispatch(booksActions.booksFetchFail(error));
     SnackbarManager.error('Error fetching books.');

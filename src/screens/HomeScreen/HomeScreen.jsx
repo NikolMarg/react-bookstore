@@ -29,13 +29,13 @@ const HomeScreen = () => {
           <img
             src={welcomeIllustration}
             className={utilClasses.imgResponsive}
-            alt=""
+            alt="Welcome"
           />
         </Grid>
 
         <Grid item xs={12} sm={7}>
           <Typography variant="h6" gutterBottom>
-            Welcome to Book Store!
+            Welcome to the Book Store!
           </Typography>
           <Typography variant="body1" gutterBottom>
             This is a test application written in React. The design system used is <Link href="https://material-ui.com/" target="_blank">Material UI</Link>, form handling is done with <Link href="https://formik.org/" target="_blank">Formik</Link>, form validations with <Link href="https://github.com/jquense/yup" target="_blank">Yup</Link>. Book suggestions carousel is created with <Link href="https://github.com/maxmarinich/react-alice-carousel" target="_blank">React Alice Carousel</Link>.
