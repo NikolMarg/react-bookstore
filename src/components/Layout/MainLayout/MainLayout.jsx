@@ -38,8 +38,8 @@ const useStyles = makeStyles((theme) =>
       [theme.breakpoints.down('sm')]: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(2)
+        marginTop: theme.spacing(4),
+        marginBottom: theme.spacing(4)
       }
     },
     content: {

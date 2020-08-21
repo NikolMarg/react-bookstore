@@ -3,14 +3,20 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import moment from "moment";
+import ReactAliceCarousel from 'react-alice-carousel';
 
 // Material component imports
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import Rating from '@material-ui/lab/Rating';
@@ -23,12 +29,10 @@ import MainLayout from '../../components/Layout/MainLayout/MainLayout';
 // Misc imports
 import { getBook, getBooks } from '../../store/books/booksThunks';
 import { NAV_ROUTES } from '../../constants';
+import { useUtilStyles } from '../../theme/styles';
+import replaceUrlParam from '../../utils/string/replaceUrlParam';
 import getInitials from '../../utils/string/getInitials';
 import DEFAULT_BOOK_COVER from '../../assets/book_placeholder.png'
-import { useUtilStyles } from '../../theme/styles';
-import ReactAliceCarousel from 'react-alice-carousel';
-import { Card, CardActionArea, CardMedia, CardContent, Divider } from '@material-ui/core';
-import replaceUrlParam from '../../utils/string/replaceUrlParam';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -135,7 +139,7 @@ const BookScreen = () => {
                 Favorite
               </Button>
 
-              <Button size="small" variant="contained" color="primary">
+              <Button size="small" variant="contained" color="primary" className={utilClasses.ml1}>
                 Share
               </Button>
             </Grid>
@@ -150,6 +154,7 @@ const BookScreen = () => {
                         size="small"
                         label={item}
                         key={item}
+                        className={utilClasses.ml1}
                       />
                     )
                   })
@@ -197,7 +202,7 @@ const BookScreen = () => {
     <MainLayout>
       <DocumentTitle title={pageTitle} />
 
-      <Grid container spacing={4}>
+      <Grid container spacing={5}>
         <Grid item xs={12}>
           <Breadcrumbs aria-label="breadcrumb">
             <Link color="inherit" to={NAV_ROUTES.ROOT} component={RouterLink}>
@@ -217,7 +222,7 @@ const BookScreen = () => {
         </Grid>
 
         <Grid item xs={12} className={classes.carouselContainer}>
-          <Typography variant="h6">
+          <Typography variant="h6" gutterBottom>
             Other books you may like
           </Typography>
           <ReactAliceCarousel

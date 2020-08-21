@@ -47,6 +47,7 @@ const useStyles = makeStyles(theme =>
       flexWrap: "wrap"
     },
     arrayFieldRemoveButton: {
+      marginTop: 0,
       marginLeft: theme.spacing(1),
       marginBottom: theme.spacing(1),
       padding: '17px 0px 17px 12px'
@@ -267,7 +268,7 @@ const BookCreateScreen = () => {
                         </Grid>
                       </Grid>
 
-                      <Grid item xs={12} sm={6}>
+                      <Grid item xs={12}>
                         <Typography>
                             Author Names
                           </Typography>

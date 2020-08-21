@@ -130,7 +130,7 @@ const BooksScreen = () => {
             {
               filteredBooks.map(item => {
                 return (
-                  <Grid item sm={4} key={item.isbn13}>
+                  <Grid item xs={12} sm={6} md={4} key={item.isbn13}>
                     <Card>
                       <CardActionArea component={RouterLink} to={replaceUrlParam(NAV_ROUTES.BOOK, item.isbn13)}>
                           <CardMedia

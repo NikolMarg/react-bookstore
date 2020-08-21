@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) =>
     },
     button: {
       color: grey[700],
-      padding: '10px 8px',
+      padding: '12px 24px',
       justifyContent: 'flex-start',
       textTransform: 'none',
       letterSpacing: 0,
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) =>
       }
     },
     icon: {
-      color: grey[700],
+      color: grey[600],
       width: 24,
       height: 24,
       marginRight: theme.spacing(3)
