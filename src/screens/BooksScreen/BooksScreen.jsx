@@ -43,6 +43,11 @@ const useStyles = makeStyles((theme) =>
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       whiteSpace: 'nowrap'
+    },
+    filterAccordion: {
+      '&::before': {
+        height: 0
+      }
     }
   })
 );
@@ -215,7 +220,7 @@ const BooksScreen = () => {
                       }}
                     />
 
-                    <Accordion className={utilClasses.mt3}>
+                    <Accordion className={`${utilClasses.mt3} ${classes.filterAccordion}`}>
                       <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                       >
