@@ -11,6 +11,8 @@ import Root from './routes/Root';
 import { SnackbarUtilsConfigurator } from './components/UI/SnackbarManager/SnackbarManager';
 import FullPageSpinner from './components/UI/FullPageSpinner/FullPageSpinner';
 
+import "react-alice-carousel/lib/alice-carousel.css";
+
 function App() {
   return (
     <Provider store={store}>

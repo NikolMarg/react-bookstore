@@ -21,16 +21,50 @@ import DocumentTitle from '../../components/UI/DocumentTitle/DocumentTitle';
 import MainLayout from '../../components/Layout/MainLayout/MainLayout';
 
 // Misc imports
-import { getBook } from '../../store/books/booksThunks';
+import { getBook, getBooks } from '../../store/books/booksThunks';
 import { NAV_ROUTES } from '../../constants';
 import getInitials from '../../utils/string/getInitials';
 import DEFAULT_BOOK_COVER from '../../assets/book_placeholder.png'
 import { useUtilStyles } from '../../theme/styles';
+import ReactAliceCarousel from 'react-alice-carousel';
+import { Card, CardActionArea, CardMedia, CardContent, Divider } from '@material-ui/core';
+import replaceUrlParam from '../../utils/string/replaceUrlParam';
 
 const useStyles = makeStyles(() =>
   createStyles({
     image: {
       borderRadius: 16
+    },
+    media: {
+      height: 240,
+      boxShadow: '0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15)',
+      borderRadius: 8,
+      margin: '14px 14px 4px 14px'
+    },
+    bookTitle: {
+      fontSize: '1.10rem',
+      lineHeight: '1.4',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap'
+    },
+    bookCardContainer: {
+      marginTop: 6,
+      marginBottom: 6,
+      marginLeft: 12,
+      marginRight: 12
+    },
+    carouselContainer: {
+      '& .alice-carousel__dots-item': {
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+
+        '&:hover' : {
+          backgroundColor: 'black'
+        },
+        '&.__active' : {
+          backgroundColor: 'black'
+        }
+      }
     }
   })
 );
@@ -41,10 +75,11 @@ const BookScreen = () => {
   const utilClasses = useUtilStyles();
   const { bookIsbn } = useParams();
 
-  const { book, isFetching, error } = useSelector((state) => state.books);
+  const { book, books, isFetching, error } = useSelector((state) => state.books);
   const pageTitle = book && book.title ? book.title : 'Book details';
 
   useEffect(() => {
+    dispatch(getBooks());
     dispatch(getBook(bookIsbn));
   }, [dispatch, bookIsbn]);
 
@@ -179,6 +214,49 @@ const BookScreen = () => {
 
         <Grid item xs={12}>
           {renderBookDetails()}
+        </Grid>
+
+        <Grid item xs={12} className={classes.carouselContainer}>
+          <Typography variant="h6">
+            Other books you may like
+          </Typography>
+          <ReactAliceCarousel
+            mouseTrackingEnabled
+            buttonsDisabled
+            autoPlay
+            autoPlayInterval={3000}
+            responsive={{
+              0: { items: 1 },
+              600: { items: 2 },
+              1024: { items: 3 }
+            }}
+            items={
+              books.map(item => {
+                return (
+                  <Grid item key={item.isbn13} className={classes.bookCardContainer}>
+                    <Card>
+                      <CardActionArea component={RouterLink} to={replaceUrlParam(NAV_ROUTES.BOOK, item.isbn13)}>
+                          <CardMedia
+                            className={classes.media}
+                            image={item.image || DEFAULT_BOOK_COVER}
+                            title={item.title}
+                          />
+                          <CardContent className={utilClasses.textCenter}>
+                            <Typography gutterBottom variant="h6" className={classes.bookTitle}>
+                              {item.title}
+                            </Typography>
+                          </CardContent>
+                          <Divider/>
+                          <CardContent className={utilClasses.textCenter}>
+                            <Rating name="rating" value={item.rating} readOnly />
+                          </CardContent>
+                      </CardActionArea>
+                    </Card>
+                  </Grid>
+                )
+              })
+            }
+          />
         </Grid>
       </Grid>
     </MainLayout>

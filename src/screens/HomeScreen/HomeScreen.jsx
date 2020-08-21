@@ -38,10 +38,10 @@ const HomeScreen = () => {
             Welcome to Book Store!
           </Typography>
           <Typography variant="body1" gutterBottom>
-            This is a test application written in React. The design system used is Material UI, form handling is done with Formik, form validations with Yup.
+            This is a test application written in React. The design system used is <Link href="https://material-ui.com/" target="_blank">Material UI</Link>, form handling is done with <Link href="https://formik.org/" target="_blank">Formik</Link>, form validations with <Link href="https://github.com/jquense/yup" target="_blank">Yup</Link>. Book suggestions carousel is created with <Link href="https://github.com/maxmarinich/react-alice-carousel" target="_blank">React Alice Carousel</Link>.
           </Typography>
           <Typography variant="body1">
-            The logo is provided by Envato Elements and the illustrations found throughout the app are by <Link href="https://dribbble.com/Ivan_Haidutski">Ivan Haidutski</Link> from <Link href="https://icons8.com/">Icons8</Link>.
+            The logo is provided by Envato Elements and the illustrations found throughout the app are by <Link href="https://dribbble.com/Ivan_Haidutski" target="_blank">Ivan Haidutski</Link> from <Link href="https://icons8.com/" target="_blank">Icons8</Link>.
           </Typography>
           
           <Button
