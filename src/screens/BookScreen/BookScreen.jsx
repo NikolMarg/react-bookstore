@@ -90,7 +90,11 @@ const BookScreen = () => {
   const renderBookDetails = () => {
     if (isFetching) {
       return (
-        <CircularProgress size={24} />
+        <Grid container justify="center" item>
+          <Grid item>
+            <CircularProgress size={32} />
+          </Grid>
+        </Grid>
       );
     }
 
@@ -190,10 +194,18 @@ const BookScreen = () => {
       );
     }
 
+    if (error) {
+      return (
+        <Typography color="error">
+          There was an issue fetching the book details, please try again.
+        </Typography>
+      );
+    }
+
     // else
     return (
       <Typography color="textSecondary">
-        Could not load book
+        Sorry, we cannot find the book you're looking for.
       </Typography>
     );
   }
