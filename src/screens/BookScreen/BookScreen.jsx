@@ -32,7 +32,8 @@ import { NAV_ROUTES } from '../../constants';
 import { useUtilStyles } from '../../theme/styles';
 import replaceUrlParam from '../../utils/string/replaceUrlParam';
 import getInitials from '../../utils/string/getInitials';
-import DEFAULT_BOOK_COVER from '../../assets/book_placeholder.png'
+import bookCoverPlaceholder from '../../assets/book_placeholder.png'
+import notFoundIllustration from '../../assets/book_not_found.png';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -103,7 +104,7 @@ const BookScreen = () => {
         <Grid container spacing={4} item>
           <Grid container direction="column" spacing={3} item sm={6}>
             <Grid item>
-              <img src={book.image || DEFAULT_BOOK_COVER} alt={book.title} className={`${utilClasses.imgResponsive} ${classes.image}`} />
+              <img src={book.image || bookCoverPlaceholder} alt={book.title} className={`${utilClasses.imgResponsive} ${classes.image}`} />
             </Grid>
 
             {
@@ -208,9 +209,20 @@ const BookScreen = () => {
 
     // else
     return (
-      <Typography color="textSecondary">
-        Sorry, we cannot find the book you're looking for.
-      </Typography>
+      <Grid container direction="column" justify="center" item>
+        <Grid item xs={9} sm={5} md={4} lg={3}>
+          <img
+            src={notFoundIllustration}
+            className={utilClasses.imgResponsive}
+            alt=""
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Typography color="textSecondary">
+            Sorry, we cannot find the book you're looking for.
+          </Typography>
+        </Grid>
+      </Grid>
     );
   }
 
@@ -261,7 +273,7 @@ const BookScreen = () => {
                           <CardActionArea component={RouterLink} to={replaceUrlParam(NAV_ROUTES.BOOK, item.isbn13)}>
                               <CardMedia
                                 className={classes.media}
-                                image={item.image || DEFAULT_BOOK_COVER}
+                                image={item.image || bookCoverPlaceholder}
                                 title={item.title}
                               />
                               <CardContent className={utilClasses.textCenter}>

@@ -1,6 +1,5 @@
 import { booksActions } from './books';
 import { SnackbarManager } from '../../components';
-import is from '../../utils/is';
 let booksData = require('../../data/books.json');
 
 export const getBook = (
@@ -53,8 +52,7 @@ export const createBook = (
   try {
     const books = window.localStorage.getItem('books') ? JSON.parse(window.localStorage.getItem('books')) : booksData;
     if (books.find(book => book.isbn13 === values.isbn13)) {
-      const error = new Error("ISDN-13 already exists. Please enter a different number.")
-      throw error.message;
+      throw new Error("ISDN-13 already exists. Please enter a different number.");
     }
 
     const updatedBooks = [...books, values];
@@ -67,8 +65,8 @@ export const createBook = (
 
     return result;
   } catch (error) {
-    dispatch(booksActions.bookCreateFail(error));
-    SnackbarManager.error(is.string(error) ? error : 'Something went wrong.');
+    dispatch(booksActions.bookCreateFail(error.message || error));
+    SnackbarManager.error(error.message || 'Something went wrong.');
 
     if (throwErrors) {
       throw error;

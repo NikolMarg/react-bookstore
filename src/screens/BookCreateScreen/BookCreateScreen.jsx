@@ -138,7 +138,7 @@ const BookCreateScreen = () => {
         validationSchema={validationSchema}
         onSubmit={onSubmit}
         validateOnChange={false}
-        validateOnBlur={false}
+        validateOnBlur={true}
       >
         {formikBag => {
           const { isValidating, touched, errors, values, handleChange, handleBlur, setFieldValue } = formikBag;
@@ -236,6 +236,7 @@ const BookCreateScreen = () => {
                           multiple
                           component={Autocomplete}
                           options={categoriesData}
+                          autoHighlight
                           renderInput={(params) => (
                             <MuiTextField
                               {...params}

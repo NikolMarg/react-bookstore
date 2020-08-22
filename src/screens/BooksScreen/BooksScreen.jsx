@@ -23,7 +23,7 @@ import { getBooks } from '../../store/books/booksThunks';
 import { Breadcrumbs, Link, CircularProgress, Card, CardMedia, CardActionArea, CardContent, Paper, Accordion, AccordionSummary, AccordionDetails, Divider } from '@material-ui/core';
 import { NAV_ROUTES, NUMBER_REGEX } from '../../constants';
 import replaceUrlParam from '../../utils/string/replaceUrlParam';
-import DEFAULT_BOOK_COVER from '../../assets/book_placeholder.png'
+import bookCoverPlaceholder from '../../assets/book_placeholder.png'
 import { useUtilStyles } from '../../theme/styles';
 import is from '../../utils/is';
 import Rating from '@material-ui/lab/Rating';
@@ -140,7 +140,7 @@ const BooksScreen = () => {
                       <CardActionArea component={RouterLink} to={replaceUrlParam(NAV_ROUTES.BOOK, item.isbn13)}>
                           <CardMedia
                             className={classes.media}
-                            image={item.image || DEFAULT_BOOK_COVER}
+                            image={item.image || bookCoverPlaceholder}
                             title={item.title}
                           />
                           <CardContent className={utilClasses.textCenter}>
