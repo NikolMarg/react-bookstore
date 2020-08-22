@@ -106,20 +106,24 @@ const BookScreen = () => {
               <img src={book.image || DEFAULT_BOOK_COVER} alt={book.title} className={`${utilClasses.imgResponsive} ${classes.image}`} />
             </Grid>
 
-            <Grid container spacing={2} alignItems="center" item>
-              <Grid item>
-                <Avatar>
-                  {getInitials(book.publisher)}
-                </Avatar>
-              </Grid>
-              
-              <Grid item>
-                <Typography>
-                  {book.publisher}
-                </Typography>
-              </Grid>
-            </Grid>
-
+            {
+              book.publisher ? (
+                <Grid container spacing={2} alignItems="center" item>
+                  <Grid item>
+                    <Avatar>
+                      {getInitials(book.publisher)}
+                    </Avatar>
+                  </Grid>
+                  
+                  <Grid item>
+                    <Typography>
+                      {book.publisher}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              ) : null
+            }
+            
             <Grid item>
               <Rating name="rating" size="large" value={book.rating} readOnly />
             </Grid>
@@ -165,16 +169,16 @@ const BookScreen = () => {
                 }
               </Typography>
               <Typography>
-                Year: {moment(book.published).year()}
+                Year: {book.published ? moment(book.published).year() : '(Not specified)'}
               </Typography>
               <Typography>
-                Number of pages: {book.pages}
+                Number of pages: {book.pages || '(Not specified)'}
               </Typography>
             </Grid>
 
             <Grid item>
               <Typography>
-                Publisher: {book.publisher}
+                Publisher: {book.publisher || '(Not specified)'}
               </Typography>
             </Grid>
 
@@ -233,49 +237,53 @@ const BookScreen = () => {
           {renderBookDetails()}
         </Grid>
 
-        <Grid item xs={12} className={classes.carouselContainer}>
-          <Typography variant="h6" gutterBottom>
-            Other books you may like
-          </Typography>
-          <ReactAliceCarousel
-            mouseTrackingEnabled
-            buttonsDisabled
-            autoPlay
-            autoPlayInterval={3000}
-            responsive={{
-              0: { items: 1 },
-              600: { items: 2 },
-              1024: { items: 3 }
-            }}
-            items={
-              books.map(item => {
-                return (
-                  <Grid item key={item.isbn13} className={classes.bookCardContainer}>
-                    <Card>
-                      <CardActionArea component={RouterLink} to={replaceUrlParam(NAV_ROUTES.BOOK, item.isbn13)}>
-                          <CardMedia
-                            className={classes.media}
-                            image={item.image || DEFAULT_BOOK_COVER}
-                            title={item.title}
-                          />
-                          <CardContent className={utilClasses.textCenter}>
-                            <Typography gutterBottom variant="h6" className={classes.bookTitle}>
-                              {item.title}
-                            </Typography>
-                          </CardContent>
-                          <Divider/>
-                          <CardContent className={utilClasses.textCenter}>
-                            <Rating name="rating" value={item.rating} readOnly />
-                          </CardContent>
-                      </CardActionArea>
-                    </Card>
-                  </Grid>
-                )
-              })
-            }
-          />
-        </Grid>
-      </Grid>
+        {
+          books && books.length > 0 ? (
+            <Grid item xs={12} className={classes.carouselContainer}>
+              <Typography variant="h6" gutterBottom>
+                Other books you may like
+              </Typography>
+              <ReactAliceCarousel
+                mouseTrackingEnabled
+                buttonsDisabled
+                autoPlay
+                autoPlayInterval={3000}
+                responsive={{
+                  0: { items: 1 },
+                  600: { items: 2 },
+                  1024: { items: 3 }
+                }}
+                items={
+                  books.map((item, index) => {
+                    return (
+                      <Grid item key={`book_${index}`} className={classes.bookCardContainer}>
+                        <Card>
+                          <CardActionArea component={RouterLink} to={replaceUrlParam(NAV_ROUTES.BOOK, item.isbn13)}>
+                              <CardMedia
+                                className={classes.media}
+                                image={item.image || DEFAULT_BOOK_COVER}
+                                title={item.title}
+                              />
+                              <CardContent className={utilClasses.textCenter}>
+                                <Typography gutterBottom variant="h6" className={classes.bookTitle}>
+                                  {item.title}
+                                </Typography>
+                              </CardContent>
+                              <Divider/>
+                              <CardContent className={utilClasses.textCenter}>
+                                <Rating name="rating" value={item.rating} readOnly />
+                              </CardContent>
+                          </CardActionArea>
+                        </Card>
+                      </Grid>
+                    )
+                  })
+                }
+              />
+            </Grid>
+          ) : null
+        }
+       </Grid>
     </MainLayout>
   );
 };

@@ -64,7 +64,9 @@ const BooksScreen = () => {
 
   const initialFilters = {
     title: urlParams.get('title') || '',
-    categories: urlParams.get('categories') ? urlParams.get('categories').split(',') : []
+    categories: urlParams.get('categories') ? urlParams.get('categories').split(',') : [],
+    publishedYear: '',
+    publisher: ''
   };
 
   const [filters, setFilters] = useState(initialFilters);
@@ -114,10 +116,10 @@ const BooksScreen = () => {
         filteredBooks = filteredBooks.filter((item) => item.title.toLowerCase().includes(filters.title.toLowerCase()));
       }
       if (filters.publisher) {
-        filteredBooks = filteredBooks.filter((item) => item.publisher.toLowerCase().includes(filters.publisher.toLowerCase()));
+        filteredBooks = filteredBooks.filter((item) => item.publisher && item.publisher.toLowerCase().includes(filters.publisher.toLowerCase()));
       }
       if (filters.publishedYear) {
-        filteredBooks = filteredBooks.filter((item) => moment(item.published).year().toString() === filters.publishedYear);
+        filteredBooks = filteredBooks.filter((item) => item.published && moment(item.published.toString()).year().toString() === filters.publishedYear);
       }
       if (filters.categories && is.not.emptyArray(filters.categories)) {
         filteredBooks = filteredBooks.filter((book) => {
@@ -131,9 +133,9 @@ const BooksScreen = () => {
       return filteredBooks.length > 0 ? (
           <Grid container spacing={3} item>
             {
-              filteredBooks.map(item => {
+              filteredBooks.map((item, index) => {
                 return (
-                  <Grid item xs={12} sm={6} md={4} key={item.isbn13}>
+                  <Grid item xs={12} sm={6} md={4} key={`book_${index}`}>
                     <Card>
                       <CardActionArea component={RouterLink} to={replaceUrlParam(NAV_ROUTES.BOOK, item.isbn13)}>
                           <CardMedia
@@ -310,12 +312,13 @@ const BooksScreen = () => {
                               margin="dense"
                               onChange={(event) => {
                                 const value = event.target.value;
-                                if (value === '' || NUMBER_REGEX.test(value))
-                                setFieldValue('publishedYear', value);
-                                setFiltersAndParams({
-                                  ...filters,
-                                  publishedYear: value
-                                });
+                                if (value === '' || (NUMBER_REGEX.test(value) && Number(value) <= moment().year())) {
+                                  setFieldValue('publishedYear', value);
+                                  setFiltersAndParams({
+                                    ...filters,
+                                    publishedYear: value
+                                  });
+                                }
                               }}
                             />
                           </Grid>

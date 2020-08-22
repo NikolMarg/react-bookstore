@@ -1,16 +1,18 @@
 // Core imports
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { Form, Field, Formik, FieldArray, getIn } from 'formik';
 import * as Yup from 'yup';
 import moment from "moment";
 
 // Material component imports
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
 import MuiTextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Rating from '@material-ui/lab/Rating';
@@ -21,16 +23,17 @@ import ClearIcon from '@material-ui/icons/Clear';
 
 // Custom component imports
 import DocumentTitle from '../../components/UI/DocumentTitle/DocumentTitle';
+import FormAsyncButton from '../../components/UI/FormAsyncButton/FormAsyncButton';
 import MainLayout from '../../components/Layout/MainLayout/MainLayout';
 
 // Misc imports
 import { TITLE_REGEX, DESCRIPTION_REGEX, NUMBER_REGEX, NAV_ROUTES } from '../../constants';
 import { createBook } from '../../store/books/booksThunks';
-import FormAsyncButton from '../../components/UI/FormAsyncButton/FormAsyncButton';
 import { useUtilStyles } from '../../theme/styles';
-import { Breadcrumbs, Link } from '@material-ui/core';
+import omitEmptyStrings from '../../utils/object/omitEmptyStrings';
+import convertArraysToStrings from '../../utils/object/convertArraysToStrings';
+import replaceUrlParam from '../../utils/string/replaceUrlParam';
 let categoriesData = require('../../data/categories.json');
-
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -62,6 +65,7 @@ const BookCreateScreen = () => {
   const classes = useStyles();
   const utilClasses = useUtilStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
   const isSubmittingBook = useSelector((state) => state.books.isSubmitting);
 
   const initialValues = {
@@ -111,7 +115,18 @@ const BookCreateScreen = () => {
   });
 
   const onSubmit = async (values) => {
-    await dispatch(createBook(values));
+    let formattedValues = {...values};
+
+    // Convert arrays to comma-separated-strings
+    formattedValues = convertArraysToStrings(formattedValues);
+
+    // Remove any empty strings from the submitted values
+    formattedValues = omitEmptyStrings(formattedValues);
+
+    const res = await dispatch(createBook(formattedValues));
+    if (res && res.isbn13) {
+      history.push(replaceUrlParam(NAV_ROUTES.BOOK, res.isbn13));
+    }
   };
 
   return (
@@ -260,9 +275,10 @@ const BookCreateScreen = () => {
                             fullWidth
                             onChange={(event) => {
                               const value = event.target.value;
-                              if (value === '' || NUMBER_REGEX.test(value))
-                              setFieldValue('publishedYear', value); 
-                              setFieldValue('published', moment(value).format());
+                              if (value === '' || (NUMBER_REGEX.test(value) && Number(value) <= moment().year())) {
+                                setFieldValue('publishedYear', value); 
+                                setFieldValue('published', moment(value).format('YYYY-MM-DDTHH:mm:ssZ'));
+                              }
                             }}
                           />
                         </Grid>
