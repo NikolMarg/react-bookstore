@@ -32,6 +32,7 @@ import { NAV_ROUTES } from '../../constants';
 import { useUtilStyles } from '../../theme/styles';
 import replaceUrlParam from '../../utils/string/replaceUrlParam';
 import getInitials from '../../utils/string/getInitials';
+import scroll from '../../utils/dom/scroll';
 import bookCoverPlaceholder from '../../assets/book_placeholder.png'
 import notFoundIllustration from '../../assets/book_not_found.png';
 
@@ -86,6 +87,7 @@ const BookScreen = () => {
   useEffect(() => {
     dispatch(getBooks());
     dispatch(getBook(bookIsbn));
+    scroll.to({ y: 0 });
   }, [dispatch, bookIsbn]);
 
   const renderBookDetails = () => {
