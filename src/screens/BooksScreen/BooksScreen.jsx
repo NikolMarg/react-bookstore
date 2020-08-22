@@ -7,8 +7,21 @@ import moment from "moment";
 
 // Material component imports
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Card from '@material-ui/core/Card';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import MuiTextField from '@material-ui/core/TextField';
+import Link from '@material-ui/core/Link';
+import Paper from '@material-ui/core/Paper';
+import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { TextField } from 'formik-material-ui';
@@ -20,13 +33,11 @@ import MainLayout from '../../components/Layout/MainLayout/MainLayout';
 
 // Misc imports
 import { getBooks } from '../../store/books/booksThunks';
-import { Breadcrumbs, Link, CircularProgress, Card, CardMedia, CardActionArea, CardContent, Paper, Accordion, AccordionSummary, AccordionDetails, Divider } from '@material-ui/core';
 import { NAV_ROUTES, NUMBER_REGEX } from '../../constants';
-import replaceUrlParam from '../../utils/string/replaceUrlParam';
 import bookCoverPlaceholder from '../../assets/book_placeholder.png'
 import { useUtilStyles } from '../../theme/styles';
+import replaceUrlParam from '../../utils/string/replaceUrlParam';
 import is from '../../utils/is';
-import Rating from '@material-ui/lab/Rating';
 let categoriesData = require('../../data/categories.json');
 
 const useStyles = makeStyles((theme) =>
@@ -255,6 +266,7 @@ const BooksScreen = () => {
                               name="categories"
                               multiple
                               component={Autocomplete}
+                              autoHighlight
                               options={categoriesData}
                               onChange={(_event, newValue) => {
                                 setFieldValue('categories', newValue);

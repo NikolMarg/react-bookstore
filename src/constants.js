@@ -7,6 +7,7 @@ export const NAV_ROUTES = {
 };
 
 export const WEBPAGE_TITLE_DEFAULT = 'Bookstore';
+export const MAX_FILE_SIZE = 2097152; // 2MB
 
 // Regular expressions
 export const TITLE_REGEX = /^[a-zA-Z0-9.@”#&*!]*$/;

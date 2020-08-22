@@ -1,5 +1,5 @@
 // Core imports
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { Form, Field, Formik, FieldArray, getIn } from 'formik';
@@ -27,7 +27,7 @@ import FormAsyncButton from '../../components/UI/FormAsyncButton/FormAsyncButton
 import MainLayout from '../../components/Layout/MainLayout/MainLayout';
 
 // Misc imports
-import { TITLE_REGEX, DESCRIPTION_REGEX, NUMBER_REGEX, NAV_ROUTES } from '../../constants';
+import { TITLE_REGEX, DESCRIPTION_REGEX, NUMBER_REGEX, NAV_ROUTES, MAX_FILE_SIZE } from '../../constants';
 import { createBook } from '../../store/books/booksThunks';
 import { useUtilStyles } from '../../theme/styles';
 import omitEmptyStrings from '../../utils/object/omitEmptyStrings';
@@ -67,6 +67,7 @@ const BookCreateScreen = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const isSubmittingBook = useSelector((state) => state.books.isSubmitting);
+  const [imageUrl, setImageUrl] = useState(null);
 
   const initialValues = {
     title: '',
@@ -82,7 +83,31 @@ const BookCreateScreen = () => {
     isbn13: ''
   };
 
+  // Convert File object to base64 for use instead of image URLs
+  const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+
   const validationSchema = Yup.object().shape({
+    image: Yup.mixed()
+    .test({
+      name: 'image',
+      exclusive: true,
+      message: 'File must be less than 2MB',
+      async test(value) {
+        if (value) {
+          const base64Value = await toBase64(value);
+          setImageUrl(base64Value);
+        } else {
+          setImageUrl(null);
+        }
+        
+        return value == null || value.size < MAX_FILE_SIZE
+      }
+    }),
     title: Yup.string()
       .required('Please enter a title.')
       .matches(
@@ -122,6 +147,14 @@ const BookCreateScreen = () => {
 
     // Remove any empty strings from the submitted values
     formattedValues = omitEmptyStrings(formattedValues);
+
+    // Set the image value
+    if (formattedValues.image) {
+      formattedValues = {
+        ...formattedValues,
+        image: imageUrl
+      };
+    }
 
     const res = await dispatch(createBook(formattedValues));
     if (res && res.isbn13) {
